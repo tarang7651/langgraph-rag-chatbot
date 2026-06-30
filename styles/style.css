@@ -1,0 +1,155 @@
+/* ── Global ── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Main layout */
+.block-container {
+    max-width: 100%;
+    margin: auto;
+    padding-top: 2rem;
+}
+
+/* Hide Streamlit chrome (keep sidebar toggle visible) */
+#MainMenu {visibility:hidden;}
+footer {visibility:hidden;}
+header[data-testid="stHeader"] {
+    background: transparent !important;
+}
+header[data-testid="stHeader"] .stDeployButton,
+header[data-testid="stHeader"] .stToolbar {
+    visibility: hidden;
+}
+
+/* ── Sidebar ── */
+section[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%) !important;
+    border-right: 1px solid rgba(255,255,255,0.06);
+}
+
+section[data-testid="stSidebar"] .block-container {
+    padding-top: 0 !important;
+}
+
+/* Brand header */
+.sidebar-brand {
+    text-align: center;
+    padding: 1.5rem 0.5rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 1rem;
+}
+
+.brand-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.3rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50%      { transform: translateY(-6px); }
+}
+
+.brand-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.02em;
+}
+
+.brand-tagline {
+    font-size: 0.7rem;
+    color: #64748b;
+    margin-top: 0.15rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* Section labels */
+.sidebar-section-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
+    margin: 1.2rem 0 0.5rem;
+    padding-left: 0.25rem;
+}
+
+/* Hint text */
+.sidebar-hint {
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+    padding-left: 0.25rem;
+}
+
+/* New Chat button */
+section[data-testid="stSidebar"] button[key="new_chat_btn"],
+section[data-testid="stSidebar"] div:has(> button) button:first-of-type {
+    transition: all 0.25s ease;
+}
+
+/* Sidebar buttons – shared */
+section[data-testid="stSidebar"] button {
+    border-radius: 10px !important;
+    font-size: 0.82rem !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+    border: 1px solid rgba(255,255,255,0.06) !important;
+    background: rgba(255,255,255,0.03) !important;
+}
+
+section[data-testid="stSidebar"] button:hover {
+    background: rgba(96, 165, 250, 0.12) !important;
+    border-color: rgba(96, 165, 250, 0.3) !important;
+    transform: translateX(2px);
+}
+
+/* Footer */
+.sidebar-footer {
+    text-align: center;
+    font-size: 0.65rem;
+    color: #475569;
+    padding: 1.5rem 0 0.5rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin-top: 2rem;
+}
+
+/* ── Chat area ── */
+.stChatMessage {
+    padding: 0.75rem;
+    border-radius: 12px;
+}
+
+/* Welcome screen */
+.welcome {
+    text-align: center;
+    margin-top: 15vh;
+}
+
+.welcome h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.welcome p {
+    color: #9ca3af;
+    font-size: 1.1rem;
+}
+
+/* Top bar */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}

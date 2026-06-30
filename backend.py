@@ -14,7 +14,7 @@ from typing import Optional, Annotated
 load_dotenv()
 from langgraph.graph.message import add_messages
 from langgraph.checkpoint.memory import InMemorySaver
-from langgraph.checkpoint.memory import InMemorySaver
+from langchain_aws.chat_models import ChatBedrock
 
 global_retriever = None
 
@@ -36,22 +36,26 @@ def process_pdf(file_bytes):
     global_retriever = vectorstore.as_retriever()
     return True
 
-OLLAMA_API_KEY = os.getenv("OLLAMA_API_KEY")
-OLLAMA_BASE_URL = "https://ollama.com"
-OLLAMA_MODEL = "gpt-oss:20b"
+# OLLAMA_API_KEY = os.getenv("OLLAMA_API_KEY")
+# OLLAMA_BASE_URL = "https://ollama.com"
+# OLLAMA_MODEL = "gpt-oss:20b"
 
-client_kwargs = {}
-if OLLAMA_API_KEY and OLLAMA_BASE_URL.startswith("https://ollama.com"):
-    client_kwargs["headers"] = {
-        "Authorization": f"Bearer {OLLAMA_API_KEY}",
-    }
+# client_kwargs = {}
+# if OLLAMA_API_KEY and OLLAMA_BASE_URL.startswith("https://ollama.com"):
+#     client_kwargs["headers"] = {
+#         "Authorization": f"Bearer {OLLAMA_API_KEY}",
+#     }
 
-model = ChatOllama(
-    model=OLLAMA_MODEL,
-    base_url=OLLAMA_BASE_URL,
-    temperature=0.5,
-    client_kwargs=client_kwargs,
-    async_client_kwargs=client_kwargs,
+# model = ChatOllama(
+#     model=OLLAMA_MODEL,
+#     base_url=OLLAMA_BASE_URL,
+#     temperature=0.5,
+#     client_kwargs=client_kwargs,
+#     async_client_kwargs=client_kwargs,
+# )
+model = ChatBedrock(
+    model_id="qwen.qwen3-235b-a22b-2507-v1:0",
+    region_name="ap-south-1",
 )
 
 class ChatState(TypedDict):
@@ -83,6 +87,3 @@ graph.add_edge(START, "chatbot")
 graph.add_edge("chatbot",END)
 workflow = graph.compile(checkpointer=checkpointer)
 
-# output_state = workflow.invoke({"messages": [HumanMessage(content="Hello")]},config={"configurable": {"thread_id": "1"}})
-# print(output_state['messages'][-1].content)
-# print(workflow.get_state_history({"configurable": {"thread_id": "1"}}))
