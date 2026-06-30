@@ -6,7 +6,7 @@ An intelligent, stateful AI assistant built with **LangGraph**, **LangChain**, a
 
 - **Stateful Conversation**: Powered by LangGraph's state machine (`StateGraph`) and `InMemorySaver` to maintain chat history and thread persistence.
 - **Retrieval-Augmented Generation (RAG)**: Upload any PDF document on the fly. The system chunks, embeds, and indexes the document using **FAISS** and **HuggingFace Embeddings** to provide highly relevant context for answers.
-- **Local AI Inference**: Support for Ollama to run models locally or on dedicated endpoints, ensuring privacy and robust inference.
+- **Cloud AI Inference**: Powered by **Amazon Bedrock** (using Qwen) for significantly faster inference and high-performance responses, replacing the previous Ollama setup.
 - **Modern User Interface**: A responsive, clean, and interactive chat UI built with Streamlit, custom CSS, and a document upload sidebar.
 
 ## 🛠️ Technology Stack
@@ -15,7 +15,7 @@ An intelligent, stateful AI assistant built with **LangGraph**, **LangChain**, a
 - **UI**: [Streamlit](https://streamlit.io/)
 - **Vector Database**: FAISS (Facebook AI Similarity Search)
 - **Embeddings**: HuggingFace (`all-MiniLM-L6-v2`)
-- **LLM Engine**: [Ollama](https://ollama.com/) (Local/Remote model hosting)
+- **LLM Engine**: [Amazon Bedrock](https://aws.amazon.com/bedrock/) (Fast, managed cloud AI model access)
 
 ## 🏗️ Architecture
 
@@ -26,7 +26,7 @@ graph TD;
     C --> D[(FAISS Vector Store)];
     B -- No --> E[LangGraph Chat State];
     D --> |Retrieve Relevant Context| E;
-    E --> F[LLM Inference via Ollama / Chat Model];
+    E --> F[LLM Inference via Amazon Bedrock];
     F --> G[Display Response in Streamlit UI];
 ```
 
@@ -47,14 +47,16 @@ Ensure you have Python 3.12+ and an environment manager like `uv` or `pip` insta
    (Ensure you are in your active virtual environment)
 
    ```bash
-   pip install streamlit langchain langchain-ollama langgraph langgraph-checkpoint faiss-cpu langchain-huggingface pypdf
+   pip install streamlit langchain langchain-aws langgraph langgraph-checkpoint faiss-cpu langchain-huggingface pypdf boto3
    ```
 3. **Configure Environment Variables**:
    Create a `.env` file in the root directory if you need to configure specific API keys for the model endpoints.
 
    ```env
    # Example configurations
-   OLLAMA_API_KEY=your_key_here
+   AWS_ACCESS_KEY_ID=your_access_key
+   AWS_SECRET_ACCESS_KEY=your_secret_key
+   AWS_DEFAULT_REGION=your_aws_region
    HF_TOKEN=your_huggingface_token
    ```
 
@@ -81,4 +83,6 @@ The application will launch in your browser at `http://localhost:8501`.
 ---
 
 *Developed as a demonstration of modern AI engineering, combining agentic workflows with robust document retrieval.*
+
 # langgraph-rag-chatbot
+
